@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 type Stat = { target: number; label: string; suffix?: string; duration?: number };
 
 const stats: Stat[] = [
-  { target: 9, label: "سنوات خبرة", suffix: "+" },
-  { target: 50, label: "ألف زائر سنوياً", suffix: "K+" },
+  { target: 2026, label: "عام الافتتاح" },
+  { target: 5000, label: "زائر في الشهر الأول", suffix: "+" },
   { target: 2600, label: "متر فوق سطح البحر", suffix: "م" },
   { target: 12, label: "نشاط ومرفق" },
 ];
