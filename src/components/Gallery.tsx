@@ -8,25 +8,27 @@ import g6 from "@/assets/gallery-uniforms.webp";
 import g7 from "@/assets/gallery-lounge.webp";
 import g8 from "@/assets/gallery-rental.webp";
 import g9 from "@/assets/gallery-school.webp";
+import { useT } from "@/i18n/LanguageProvider";
+import type { TranslationKey } from "@/i18n/translations";
 
 const Lightbox = lazy(() => import("./Lightbox").then((m) => ({ default: m.Lightbox })));
 
-type Item = { src: string; alt: string; label: string; span?: string; reveal?: string };
+type Item = { src: string; altKey: TranslationKey; labelKey: TranslationKey; span?: string; reveal?: string };
 
-// Distinct masonry layout — varies col/row spans for visual rhythm
 const items: Item[] = [
-  { src: g1, alt: "إطلالة جوية على المركز في سانت كاترين", label: "المركز الرئيسي", span: "md:col-span-2 md:row-span-2", reveal: "reveal-zoom" },
-  { src: g2, alt: "محاكي التزلج الدوّار", label: "محاكي التزلج", span: "md:col-span-2", reveal: "reveal-left" },
-  { src: g3, alt: "صالة الاستقبال الرئيسية بالمركز", label: "صالة الاستقبال", reveal: "reveal-blur" },
-  { src: g5, alt: "قاعة المنحدر الداخلي مع الثلج الصناعي", label: "المنحدر الداخلي", span: "md:row-span-2", reveal: "reveal-right" },
-  { src: g4, alt: "مدفع الثلج الصناعي يعمل داخل القاعة", label: "مدفع الثلج", reveal: "reveal-blur" },
-  { src: g9, alt: "مدرسة التزلج للأطفال مع المدرب", label: "مدرسة التزلج", reveal: "reveal" },
-  { src: g7, alt: "صالة الاستراحة والمدفأة", label: "صالة الاستراحة", span: "md:col-span-2", reveal: "reveal-left" },
-  { src: g8, alt: "غرفة تأجير معدات التزلج", label: "تأجير المعدات", reveal: "reveal-blur" },
-  { src: g6, alt: "بدلات التزلج الرسمية للمركز", label: "زي المركز", reveal: "reveal" },
+  { src: g1, altKey: "gallery.alt.main", labelKey: "gallery.label.main", span: "md:col-span-2 md:row-span-2", reveal: "reveal-zoom" },
+  { src: g2, altKey: "gallery.alt.simulator", labelKey: "gallery.label.simulator", span: "md:col-span-2", reveal: "reveal-left" },
+  { src: g3, altKey: "gallery.alt.lobby", labelKey: "gallery.label.lobby", reveal: "reveal-blur" },
+  { src: g5, altKey: "gallery.alt.slope", labelKey: "gallery.label.slope", span: "md:row-span-2", reveal: "reveal-right" },
+  { src: g4, altKey: "gallery.alt.cannon", labelKey: "gallery.label.cannon", reveal: "reveal-blur" },
+  { src: g9, altKey: "gallery.alt.school", labelKey: "gallery.label.school", reveal: "reveal" },
+  { src: g7, altKey: "gallery.alt.lounge", labelKey: "gallery.label.lounge", span: "md:col-span-2", reveal: "reveal-left" },
+  { src: g8, altKey: "gallery.alt.rental", labelKey: "gallery.label.rental", reveal: "reveal-blur" },
+  { src: g6, altKey: "gallery.alt.uniforms", labelKey: "gallery.label.uniforms", reveal: "reveal" },
 ];
 
 export const Gallery = () => {
+  const t = useT();
   const [open, setOpen] = useState<number | null>(null);
 
   return (
@@ -35,13 +37,13 @@ export const Gallery = () => {
       <div className="container relative">
         <div className="reveal text-center mb-14">
           <span className="inline-block rounded-full border border-border/60 bg-ice/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-ice-light">
-            📸 معرض الصور
+            {t("gallery.tag")}
           </span>
           <h2 className="mt-4 text-4xl md:text-5xl font-black">
-            داخل <span className="text-gradient-aurora">المشروع</span>
+            {t("gallery.title.l1")} <span className="text-gradient-aurora">{t("gallery.title.l2")}</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
-            جولة بصرية في مرافق المركز ومضاميره وخدماته
+            {t("gallery.subtitle")}
           </p>
         </div>
 
@@ -52,11 +54,11 @@ export const Gallery = () => {
               onClick={() => setOpen(i)}
               className={`${it.reveal ?? "reveal"} group relative overflow-hidden rounded-2xl md:rounded-3xl shadow-soft hover:shadow-lift transition-spring focus:outline-none focus:ring-2 focus:ring-ice/60 hover:-translate-y-1 ${it.span ?? ""}`}
               style={{ ["--reveal-delay" as string]: `${i * 0.08}s` } as React.CSSProperties}
-              aria-label={`تكبير: ${it.label}`}
+              aria-label={`${t("gallery.zoom")}${t(it.labelKey)}`}
             >
               <img
                 src={it.src}
-                alt={it.alt}
+                alt={t(it.altKey)}
                 loading="lazy"
                 width={800}
                 height={600}
@@ -64,10 +66,10 @@ export const Gallery = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-night/90 via-night/20 to-transparent opacity-90 group-hover:opacity-100 transition-smooth" />
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-frost/20 to-transparent skew-x-[-20deg]" />
-              <span className="absolute bottom-3 right-3 left-3 text-right text-frost font-bold text-sm md:text-base drop-shadow-lg group-hover:translate-y-[-4px] transition-spring">
-                {it.label}
+              <span className="absolute bottom-3 end-3 start-3 text-end text-frost font-bold text-sm md:text-base drop-shadow-lg group-hover:translate-y-[-4px] transition-spring">
+                {t(it.labelKey)}
               </span>
-              <span className="absolute top-3 left-3 h-8 w-8 rounded-full bg-frost/20 backdrop-blur-md grid place-items-center text-frost text-xs opacity-0 group-hover:opacity-100 transition-smooth">
+              <span className="absolute top-3 start-3 h-8 w-8 rounded-full bg-frost/20 backdrop-blur-md grid place-items-center text-frost text-xs opacity-0 group-hover:opacity-100 transition-smooth">
                 ↗
               </span>
             </button>
@@ -77,7 +79,7 @@ export const Gallery = () => {
 
       {open !== null && (
         <Suspense fallback={null}>
-          <Lightbox item={items[open]} onClose={() => setOpen(null)} />
+          <Lightbox item={{ src: items[open].src, alt: t(items[open].altKey), label: t(items[open].labelKey) }} onClose={() => setOpen(null)} />
         </Suspense>
       )}
     </section>

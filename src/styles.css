@@ -50,7 +50,7 @@
   --color-gold-warm: hsl(var(--gold-warm));
   --color-silver: hsl(var(--silver));
 
-  --font-sans: "Tajawal", system-ui, sans-serif;
+  --font-sans: "Inter", "Tajawal", system-ui, sans-serif;
   --font-serif: "Amiri", Georgia, serif;
 }
 
