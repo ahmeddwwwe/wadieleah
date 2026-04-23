@@ -56,11 +56,11 @@ export const Offers = ({ onBook }: Props) => {
           <h2 className="mt-4 text-4xl md:text-5xl font-black">لا تفوّت <span className="text-gradient-aurora">الفرص</span></h2>
           <div className="mt-6 inline-flex items-center gap-3 glass rounded-2xl px-5 py-3">
             <span className="text-sm text-muted-foreground">ينتهي العرض خلال:</span>
-            <div className="flex gap-2 font-black text-lg tabular-nums text-gradient-gold">
-              <span className="glass rounded-md px-2 py-1">{t.d}<span className="text-[10px] font-medium text-muted-foreground mr-1">ي</span></span><span>:</span>
-              <span className="glass rounded-md px-2 py-1">{t.h}</span><span>:</span>
-              <span className="glass rounded-md px-2 py-1">{t.m}</span><span>:</span>
-              <span className="glass rounded-md px-2 py-1">{t.s}</span>
+            <div className="flex items-center gap-1.5 font-black text-lg tabular-nums">
+              <span className="rounded-md bg-night/60 border border-gold/30 px-2.5 py-1 text-gold">{t.d}<span className="text-[10px] font-medium text-muted-foreground mr-1">ي</span></span><span className="text-gold/60">:</span>
+              <span className="rounded-md bg-night/60 border border-gold/30 px-2.5 py-1 text-gold">{t.h}</span><span className="text-gold/60">:</span>
+              <span className="rounded-md bg-night/60 border border-gold/30 px-2.5 py-1 text-gold">{t.m}</span><span className="text-gold/60">:</span>
+              <span className="rounded-md bg-night/60 border border-gold/30 px-2.5 py-1 text-gold">{t.s}</span>
             </div>
           </div>
         </div>
