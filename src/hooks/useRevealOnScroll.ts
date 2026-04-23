@@ -3,7 +3,7 @@ import { useEffect } from "react";
 // IntersectionObserver-powered reveal — adds .in-view to any reveal class
 const SELECTOR = ".reveal, .reveal-left, .reveal-right, .reveal-zoom, .reveal-blur";
 
-export const useRevealOnScroll = () => {
+export function useRevealOnScroll() {
   useEffect(() => {
     const reveal = (el: Element) => el.classList.add("in-view");
     const els = document.querySelectorAll<HTMLElement>(SELECTOR);
@@ -27,4 +27,4 @@ export const useRevealOnScroll = () => {
       clearTimeout(safety);
     };
   }, []);
-};
+}
