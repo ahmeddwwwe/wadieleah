@@ -57,6 +57,7 @@ export const Offers = ({ onBook }: Props) => {
           <div className="mt-6 inline-flex items-center gap-3 glass rounded-2xl px-5 py-3">
             <span className="text-sm text-muted-foreground">ينتهي العرض خلال:</span>
             <div className="flex gap-2 font-black text-lg tabular-nums text-gradient-gold">
+              <span className="glass rounded-md px-2 py-1">{t.d}<span className="text-[10px] font-medium text-muted-foreground mr-1">ي</span></span><span>:</span>
               <span className="glass rounded-md px-2 py-1">{t.h}</span><span>:</span>
               <span className="glass rounded-md px-2 py-1">{t.m}</span><span>:</span>
               <span className="glass rounded-md px-2 py-1">{t.s}</span>
