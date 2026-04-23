@@ -87,9 +87,10 @@ function Index() {
         <Button
           onClick={openGame}
           size="lg"
-          className="fixed bottom-6 start-6 z-40 h-16 px-6 rounded-full bg-gradient-ice text-night font-black shadow-ice hover:shadow-lift hover:-translate-y-1 transition-spring"
+          className="fixed bottom-4 start-4 md:bottom-6 md:start-6 z-40 h-12 px-4 md:h-16 md:px-6 rounded-full bg-gradient-ice text-night font-black text-sm md:text-base shadow-ice hover:shadow-lift hover:-translate-y-1 transition-spring"
+          style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
         >
-          <Play className="h-5 w-5 me-2 fill-current" />
+          <Play className="h-4 w-4 md:h-5 md:w-5 me-1.5 md:me-2 fill-current" />
           {t("game.float")}
         </Button>
       )}

@@ -43,18 +43,18 @@ const Counter = ({ stat }: { stat: Stat }) => {
   const suffix = stat.suffixKey ? t(stat.suffixKey) : (stat.suffix ?? "");
 
   return (
-    <div ref={ref} className="group flex-1 min-w-[140px] border-l border-border/50 last:border-l-0 p-8 text-center transition-colors hover:bg-ice/5">
-      <div className="text-4xl md:text-5xl font-black text-gradient-gold leading-none tabular-nums">
+    <div ref={ref} className="group md:flex-1 md:min-w-[140px] p-5 md:p-8 text-center transition-colors hover:bg-ice/5 border-b border-l border-border/50 [&:nth-child(2n)]:border-l-0 md:[&:nth-child(2n)]:border-l md:first:border-l-0 md:border-b-0">
+      <div className="text-2xl sm:text-3xl md:text-5xl font-black text-gradient-gold leading-none tabular-nums">
         {formatted}{suffix}
       </div>
-      <div className="mt-2 text-xs md:text-sm font-medium text-muted-foreground tracking-wider">{t(stat.labelKey)}</div>
+      <div className="mt-2 text-[10px] sm:text-xs md:text-sm font-medium text-muted-foreground tracking-wider">{t(stat.labelKey)}</div>
     </div>
   );
 };
 
 export const StatsBar = () => (
   <section className="relative z-10 border-y border-border/50 glass-strong">
-    <div className="container flex flex-wrap">
+    <div className="container grid grid-cols-2 md:flex md:flex-wrap">
       {stats.map((s) => <Counter key={s.labelKey} stat={s} />)}
     </div>
   </section>
