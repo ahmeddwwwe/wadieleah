@@ -577,13 +577,103 @@ export const SkiGame2D = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  // Touch with impulse on press (mirrors keyboard tap-to-dodge)
-  const touch = (k: keyof typeof g.current.keys, on: boolean) => () => {
-    if (on && !g.current.keys[k]) {
-      if (k === "left") g.current.svx -= STEER_IMPULSE;
-      else if (k === "right") g.current.svx += STEER_IMPULSE;
+  // ============================================================
+  // Mobile swipe & touch-drag controls
+  // ----------------------------------------------------------------
+  // - Drag finger horizontally → smooth lateral steering (mapped to svx)
+  // - Quick swipe left/right    → instant impulse dodge
+  // - Swipe up                  → boost (until release / new swipe)
+  // - Swipe down / two-finger   → brake (while held)
+  // - Tap (no movement)         → small boost burst
+  // ============================================================
+  const touchRef = useRef<{
+    active: boolean;
+    startX: number; startY: number; startT: number;
+    lastX: number; lastY: number; lastT: number;
+    vx: number; vy: number;
+    pointers: number;
+    boostHeld: boolean;
+    brakeHeld: boolean;
+  }>({
+    active: false, startX: 0, startY: 0, startT: 0,
+    lastX: 0, lastY: 0, lastT: 0, vx: 0, vy: 0,
+    pointers: 0, boostHeld: false, brakeHeld: false,
+  });
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (state !== "playing") return;
+    const t = touchRef.current;
+    t.pointers = e.touches.length;
+    if (e.touches.length >= 2) {
+      // Two-finger touch = brake
+      g.current.keys.brake = true;
+      t.brakeHeld = true;
+      return;
     }
-    g.current.keys[k] = on;
+    const p = e.touches[0];
+    t.active = true;
+    t.startX = t.lastX = p.clientX;
+    t.startY = t.lastY = p.clientY;
+    t.startT = t.lastT = performance.now();
+    t.vx = 0; t.vy = 0;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (state !== "playing" || !touchRef.current.active) return;
+    const t = touchRef.current;
+    const p = e.touches[0];
+    const now = performance.now();
+    const dt = Math.max(1, now - t.lastT);
+    const dx = p.clientX - t.lastX;
+    const dy = p.clientY - t.lastY;
+    // Smooth steering: drag delta directly drives lateral velocity
+    // Sensitivity tuned for finger-on-glass feel
+    g.current.svx += dx * 6;
+    g.current.svx = clamp(g.current.svx, -MAX_LATERAL, MAX_LATERAL);
+    // Track velocity for swipe detection on release
+    t.vx = dx / dt * 1000; // px/sec
+    t.vy = dy / dt * 1000;
+    t.lastX = p.clientX;
+    t.lastY = p.clientY;
+    t.lastT = now;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const t = touchRef.current;
+    if (t.brakeHeld && e.touches.length < 2) {
+      g.current.keys.brake = false;
+      t.brakeHeld = false;
+    }
+    if (!t.active) return;
+    if (e.touches.length > 0) return; // still pressing
+    t.active = false;
+    const dx = t.lastX - t.startX;
+    const dy = t.lastY - t.startY;
+    const dur = performance.now() - t.startT;
+    const dist = Math.hypot(dx, dy);
+    // Quick flick detection
+    if (dur < 350 && dist > 50) {
+      const angle = Math.atan2(dy, dx);
+      const absA = Math.abs(angle);
+      if (absA > Math.PI * 0.66) {
+        // swipe LEFT (angle near ±π)
+        g.current.svx -= STEER_IMPULSE * 1.5;
+      } else if (absA < Math.PI * 0.34) {
+        // swipe RIGHT (angle near 0)
+        g.current.svx += STEER_IMPULSE * 1.5;
+      } else if (angle < -Math.PI * 0.34 && angle > -Math.PI * 0.66) {
+        // swipe UP — boost burst
+        g.current.speed = Math.min(BOOST_SPEED, g.current.speed + 120);
+        g.current.boostFlash = 1;
+      } else if (angle > Math.PI * 0.34 && angle < Math.PI * 0.66) {
+        // swipe DOWN — short brake pulse
+        g.current.speed *= 0.85;
+      }
+    } else if (dur < 200 && dist < 12) {
+      // Pure tap → mini boost
+      g.current.speed = Math.min(BOOST_SPEED, g.current.speed + 60);
+      g.current.boostFlash = Math.max(g.current.boostFlash, 0.6);
+    }
   };
 
   return (
@@ -592,6 +682,10 @@ export const SkiGame2D = () => {
         ref={canvasRef}
         className="absolute inset-0 w-full h-full touch-none"
         style={{ imageRendering: "auto" }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchEnd}
       />
 
       {/* HUD */}
