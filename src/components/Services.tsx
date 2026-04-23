@@ -1,12 +1,12 @@
-import { Mountain, Snowflake, Waves, Utensils, Trees, Package } from "lucide-react";
+import { Snowflake, Trees, Package, Waves, Sparkles, Flame } from "lucide-react";
 
 const services = [
   { icon: Snowflake, title: "تزلج على الثلج", desc: "مضامير متعددة المستويات مع معدات احترافية ومدربين معتمدين." },
   { icon: Trees, title: "التزلج الحر", desc: "مناطق مخصصة للتزلج الحر وألعاب الثلج للمبتدئين والمحترفين." },
-  { icon: Mountain, title: "إطلالات الجبل", desc: "نقاط مشاهدة بانورامية فوق قمم سانت كاترين." },
+  { icon: Sparkles, title: "متاهة الجليد المضيئة", desc: "متاهة ضخمة من جدران الجليد مع إضاءة LED تفاعلية وموسيقى غامرة ليلاً." },
   { icon: Package, title: "تأجير المعدات", desc: "أحدث الزلاجات والمعدات الاحترافية بأحجام تناسب جميع الأعمار." },
   { icon: Waves, title: "سبا وجاكوزي", desc: "استرخِ بعد المغامرة في جلسات سبا فاخرة وجاكوزي دافئ." },
-  { icon: Utensils, title: "مطعم الجبل", desc: "مطعم بإطلالة ساحرة يقدم أشهى الأطباق في أجواء شتوية دافئة." },
+  { icon: Flame, title: "خيام النار البدوية", desc: "أمسيات حول النار في خيام بدوية فاخرة مع شاي وحطب وقصص تحت النجوم." },
 ];
 
 export const Services = () => (
