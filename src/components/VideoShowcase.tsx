@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX, Play, Pause, Maximize2 } from "lucide-react";
 import heroImg from "@/assets/hero-mountain.webp";
+import heroVideo from "@/assets/hero-video.mp4";
 
-const VIDEO_SRC = "/hero-video.mp4";
+const VIDEO_SRC = heroVideo;
 
 export const VideoShowcase = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
