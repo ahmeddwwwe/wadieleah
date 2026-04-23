@@ -15,7 +15,7 @@ import { CTA } from "@/components/CTA";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { SnowCanvas } from "@/components/SnowCanvas";
-import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 
