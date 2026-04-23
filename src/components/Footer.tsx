@@ -5,7 +5,7 @@ import { useT } from "@/i18n/LanguageProvider";
 export const Footer = () => {
   const t = useT();
   return (
-    <footer className="relative border-t border-border/60 bg-night pt-16 pb-8">
+    <footer className="relative border-t border-border/60 bg-night pt-16 pb-24 md:pb-8">
       <div className="container">
         <div className="grid gap-10 md:grid-cols-3 mb-10">
           <div>
