@@ -45,11 +45,12 @@ const FINISH_DISTANCE = 6000;        // world units to finish
 const WORLD_ZOOM = 1.35;
 
 // Reward tiers — score → free hours of equipment usage
+// Tuned so any player who plays seriously wins something
 const REWARD_TIERS = [
-  { score: 800,  hours: 1, label: "ساعة مجانية", code: "SKI-BRONZE" },
-  { score: 2000, hours: 3, label: "٣ ساعات مجانية", code: "SKI-SILVER" },
-  { score: 4000, hours: 6, label: "٦ ساعات مجانية", code: "SKI-GOLD" },
-  { score: 7000, hours: 12, label: "يوم كامل مجاني", code: "SKI-PLATINUM" },
+  { score: 200,  hours: 1, label: "ساعة مجانية", code: "SKI-BRONZE" },
+  { score: 600,  hours: 3, label: "٣ ساعات مجانية", code: "SKI-SILVER" },
+  { score: 1500, hours: 6, label: "٦ ساعات مجانية", code: "SKI-GOLD" },
+  { score: 3000, hours: 12, label: "يوم كامل مجاني", code: "SKI-PLATINUM" },
 ];
 
 // ============================================================
