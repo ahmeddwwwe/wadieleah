@@ -11,17 +11,36 @@ const offers = [
   { icon: Flame, label: "مغامرة", title: "تزلج + تلفريك + سبا", desc: "باقة شاملة بسعر ٥,٩٩٩ بدلاً من ٧,٥٠٠ ج.م", tone: "gold" },
 ];
 
+// Fixed deadline: end of the upcoming Sunday at 23:59:59 (Cairo time)
+const getDeadline = () => {
+  const now = new Date();
+  const target = new Date(now);
+  const dow = now.getDay(); // 0 = Sunday
+  const daysUntilSunday = (7 - dow) % 7 || 7;
+  target.setDate(now.getDate() + daysUntilSunday);
+  target.setHours(23, 59, 59, 999);
+  return target.getTime();
+};
+
 const useCountdown = () => {
-  const [time, setTime] = useState({ h: "00", m: "00", s: "00" });
+  const [time, setTime] = useState({ d: "00", h: "00", m: "00", s: "00" });
   useEffect(() => {
-    const end = Date.now() + 1000 * 60 * 60 * 24 * 2;
-    const t = setInterval(() => {
-      const d = Math.max(0, end - Date.now());
-      const h = Math.floor(d / 3.6e6);
-      const m = Math.floor((d % 3.6e6) / 6e4);
-      const s = Math.floor((d % 6e4) / 1000);
-      setTime({ h: String(h).padStart(2, "0"), m: String(m).padStart(2, "0"), s: String(s).padStart(2, "0") });
-    }, 1000);
+    const end = getDeadline();
+    const update = () => {
+      const diff = Math.max(0, end - Date.now());
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      setTime({
+        d: String(d).padStart(2, "0"),
+        h: String(h).padStart(2, "0"),
+        m: String(m).padStart(2, "0"),
+        s: String(s).padStart(2, "0"),
+      });
+    };
+    update();
+    const t = setInterval(update, 1000);
     return () => clearInterval(t);
   }, []);
   return time;
