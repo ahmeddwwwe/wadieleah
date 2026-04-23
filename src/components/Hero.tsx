@@ -60,28 +60,28 @@ export const Hero = ({ onBook }: Props) => {
             {t("hero.location")}
           </div>
 
-          <h1 className="mt-6 font-black leading-[0.95] tracking-tight text-frost [font-size:clamp(3rem,8vw,6rem)]">
+          <h1 className="mt-6 font-black leading-[0.95] tracking-tight text-frost [font-size:clamp(2.5rem,12vw,6rem)]">
             <span className="block opacity-0 animate-fade-in" style={{ animationDelay: "0.5s" }}>{t("hero.title.l1")}</span>
-            <span className="block text-gradient-frost opacity-0 animate-fade-in" style={{ animationDelay: "0.7s" }}>{t("hero.title.l2")}</span>
+            <span className="block text-gradient-frost opacity-0 animate-fade-in drop-shadow-[0_2px_20px_rgba(180,220,255,0.35)]" style={{ animationDelay: "0.7s" }}>{t("hero.title.l2")}</span>
             <span className="block opacity-0 animate-fade-in" style={{ animationDelay: "0.9s" }}>{t("hero.title.l3")}</span>
           </h1>
 
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-frost/75 opacity-0 animate-fade-in" style={{ animationDelay: "1.1s" }}>
+          <p className="mt-5 sm:mt-6 max-w-lg text-base sm:text-lg leading-relaxed text-frost/75 opacity-0 animate-fade-in" style={{ animationDelay: "1.1s" }}>
             {t("hero.subtitle")}
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4 opacity-0 animate-fade-in" style={{ animationDelay: "1.3s" }}>
-            <Button size="lg" onClick={onBook} className="bg-gradient-ice text-night font-bold shadow-ice hover:shadow-lift hover:-translate-y-1 transition-spring h-14 px-8 text-base">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 opacity-0 animate-fade-in" style={{ animationDelay: "1.3s" }}>
+            <Button size="lg" onClick={onBook} className="bg-gradient-ice text-night font-bold shadow-ice hover:shadow-lift hover:-translate-y-1 transition-spring h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base">
               <Play className="h-4 w-4 me-2 fill-current" />
               {t("hero.cta.start")}
             </Button>
-            <Button size="lg" variant="outline" onClick={onBook} className="h-14 px-8 border-frost/25 bg-transparent text-frost hover:border-gold hover:text-gold hover:bg-gold/5 transition-spring text-base">
+            <Button size="lg" variant="outline" onClick={onBook} className="h-12 sm:h-14 px-6 sm:px-8 border-frost/25 bg-transparent text-frost hover:border-gold hover:text-gold hover:bg-gold/5 transition-spring text-sm sm:text-base">
               {t("hero.cta.book")}
             </Button>
           </div>
 
-          <div className="mt-16 flex items-center gap-3 text-sm text-muted-foreground opacity-0 animate-fade-in" style={{ animationDelay: "1.5s" }}>
-            <ArrowDown className="h-5 w-5 text-ice animate-bounce-soft" />
+          <div className="mt-10 sm:mt-16 mb-24 sm:mb-0 flex items-center gap-3 text-xs sm:text-sm text-muted-foreground opacity-0 animate-fade-in" style={{ animationDelay: "1.5s" }}>
+            <ArrowDown className="h-4 w-4 sm:h-5 sm:w-5 text-ice animate-bounce-soft" />
             <span>{t("hero.scroll")}</span>
           </div>
         </div>
