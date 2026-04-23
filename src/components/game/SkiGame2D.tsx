@@ -720,33 +720,12 @@ export const SkiGame2D = () => {
             <Pause className="h-4 w-4" />
           </button>
 
-          {/* Touch controls — LEFT arrow on left side, RIGHT arrow on right side */}
-          <div className="absolute bottom-4 inset-x-0 flex justify-between items-end px-4 sm:hidden pointer-events-none">
-            {/* LEFT side: left arrow */}
-            <button
-              onPointerDown={touch("left", true)} onPointerUp={touch("left", false)} onPointerLeave={touch("left", false)} onPointerCancel={touch("left", false)}
-              className="pointer-events-auto h-20 w-20 rounded-2xl glass-strong text-frost text-4xl font-black active:scale-95 active:bg-ice/30 transition-spring shadow-lift"
-              aria-label="يسار"
-            >◀</button>
-
-            {/* Center: brake + boost */}
-            <div className="flex gap-2 pointer-events-auto">
-              <button
-                onPointerDown={touch("brake", true)} onPointerUp={touch("brake", false)} onPointerLeave={touch("brake", false)} onPointerCancel={touch("brake", false)}
-                className="h-14 w-14 rounded-2xl glass-strong text-frost text-xs font-bold active:scale-95 transition-spring"
-              >فرامل</button>
-              <button
-                onPointerDown={touch("boost", true)} onPointerUp={touch("boost", false)} onPointerLeave={touch("boost", false)} onPointerCancel={touch("boost", false)}
-                className="h-14 w-14 rounded-2xl bg-gradient-ice text-night text-xs font-black active:scale-95 transition-spring shadow-ice"
-              >سرعة</button>
+          {/* Mobile swipe hint — fades after first interaction */}
+          <div className="absolute bottom-6 inset-x-0 sm:hidden flex justify-center pointer-events-none">
+            <div className="glass-strong rounded-full px-4 py-2 text-frost/80 text-[11px] font-bold flex items-center gap-2 animate-pulse-soft">
+              <span className="text-base">👆</span>
+              اسحب يمين/يسار للتوجيه • فوق للسرعة • إصبعين للفرامل
             </div>
-
-            {/* RIGHT side: right arrow */}
-            <button
-              onPointerDown={touch("right", true)} onPointerUp={touch("right", false)} onPointerLeave={touch("right", false)} onPointerCancel={touch("right", false)}
-              className="pointer-events-auto h-20 w-20 rounded-2xl glass-strong text-frost text-4xl font-black active:scale-95 active:bg-ice/30 transition-spring shadow-lift"
-              aria-label="يمين"
-            >▶</button>
           </div>
         </>
       )}
