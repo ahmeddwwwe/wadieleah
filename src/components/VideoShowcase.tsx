@@ -82,7 +82,6 @@ export const VideoShowcase = () => {
     >
       <video
         ref={videoRef}
-        src={VIDEO_SRC}
         poster={heroImg}
         playsInline
         loop
@@ -90,8 +89,19 @@ export const VideoShowcase = () => {
         autoPlay
         preload="auto"
         onClick={togglePlay}
+        onError={(e) => console.error("[VideoShowcase] error", e.currentTarget.error)}
+        onLoadedData={() => console.log("[VideoShowcase] loaded")}
         className="absolute inset-0 h-full w-full object-cover cursor-pointer"
         aria-label="فيديو جولة داخل مركز وادي الراحة"
+      >
+        <source src={VIDEO_SRC} type="video/mp4" />
+      </video>
+      {/* Always-visible poster fallback (in case video fails) */}
+      <img
+        src={heroImg}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover -z-10"
       />
 
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-night/70 to-transparent" />

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
-type Stat = { target: number; label: string; suffix?: string };
+type Stat = { target: number; label: string; suffix?: string; duration?: number };
 
 const stats: Stat[] = [
-  { target: 2026, label: "سنة التأسيس" },
-  { target: 1, label: "مليون زائر سعيد", suffix: "M+" },
-  { target: 2600, label: "متر فوق البحر", suffix: "م" },
-  { target: 12, label: "نشاط مختلف" },
+  { target: 9, label: "سنوات خبرة", suffix: "+" },
+  { target: 50, label: "ألف زائر سنوياً", suffix: "K+" },
+  { target: 2600, label: "متر فوق سطح البحر", suffix: "م" },
+  { target: 12, label: "نشاط ومرفق" },
 ];
 
 const Counter = ({ stat }: { stat: Stat }) => {
@@ -19,7 +19,7 @@ const Counter = ({ stat }: { stat: Stat }) => {
     const io = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && !done.current) {
         done.current = true;
-        const duration = 1600;
+        const duration = 2200;
         const start = performance.now();
         const tick = (now: number) => {
           const p = Math.min(1, (now - start) / duration);
