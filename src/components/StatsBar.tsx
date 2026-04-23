@@ -43,7 +43,7 @@ const Counter = ({ stat }: { stat: Stat }) => {
   const suffix = stat.suffixKey ? t(stat.suffixKey) : (stat.suffix ?? "");
 
   return (
-    <div ref={ref} className="group p-5 md:p-8 text-center transition-colors hover:bg-ice/5 border-b border-l border-border/50 [&:nth-child(2n)]:border-l-0 md:[&:nth-child(2n)]:border-l md:last:border-l-0 md:border-b-0">
+    <div ref={ref} className="group md:flex-1 md:min-w-[140px] p-5 md:p-8 text-center transition-colors hover:bg-ice/5 border-b border-l border-border/50 [&:nth-child(2n)]:border-l-0 md:[&:nth-child(2n)]:border-l md:first:border-l-0 md:border-b-0">
       <div className="text-2xl sm:text-3xl md:text-5xl font-black text-gradient-gold leading-none tabular-nums">
         {formatted}{suffix}
       </div>
