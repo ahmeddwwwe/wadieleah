@@ -1,15 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { useT, useLang } from "@/i18n/LanguageProvider";
+import type { TranslationKey } from "@/i18n/translations";
 
-type Stat = { target: number; label: string; suffix?: string; duration?: number };
+type Stat = { target: number; labelKey: TranslationKey; suffixKey?: TranslationKey; suffix?: string };
 
 const stats: Stat[] = [
-  { target: 2026, label: "عام الافتتاح" },
-  { target: 5000, label: "زائر في الشهر الأول", suffix: "+" },
-  { target: 2600, label: "متر فوق سطح البحر", suffix: "م" },
-  { target: 12, label: "نشاط ومرفق" },
+  { target: 2026, labelKey: "stats.openYear" },
+  { target: 5000, labelKey: "stats.visitors", suffix: "+" },
+  { target: 2600, labelKey: "stats.altitude", suffixKey: "stats.suffix.m" },
+  { target: 12, labelKey: "stats.activities" },
 ];
 
 const Counter = ({ stat }: { stat: Stat }) => {
+  const t = useT();
+  const { lang } = useLang();
   const [val, setVal] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const done = useRef(false);
@@ -35,12 +39,15 @@ const Counter = ({ stat }: { stat: Stat }) => {
     return () => io.disconnect();
   }, [stat.target]);
 
+  const formatted = val.toLocaleString(lang === "ar" ? "ar-EG" : "en-US");
+  const suffix = stat.suffixKey ? t(stat.suffixKey) : (stat.suffix ?? "");
+
   return (
     <div ref={ref} className="group flex-1 min-w-[140px] border-l border-border/50 last:border-l-0 p-8 text-center transition-colors hover:bg-ice/5">
       <div className="text-4xl md:text-5xl font-black text-gradient-gold leading-none tabular-nums">
-        {val}{stat.suffix ?? ""}
+        {formatted}{suffix}
       </div>
-      <div className="mt-2 text-xs md:text-sm font-medium text-muted-foreground tracking-wider">{stat.label}</div>
+      <div className="mt-2 text-xs md:text-sm font-medium text-muted-foreground tracking-wider">{t(stat.labelKey)}</div>
     </div>
   );
 };
@@ -48,7 +55,7 @@ const Counter = ({ stat }: { stat: Stat }) => {
 export const StatsBar = () => (
   <section className="relative z-10 border-y border-border/50 glass-strong">
     <div className="container flex flex-wrap">
-      {stats.map((s) => <Counter key={s.label} stat={s} />)}
+      {stats.map((s) => <Counter key={s.labelKey} stat={s} />)}
     </div>
   </section>
 );
