@@ -18,6 +18,7 @@ import { SnowCanvas } from "@/components/SnowCanvas";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
+import { useT } from "@/i18n/LanguageProvider";
 
 // Lazy-loaded — heavy components loaded on demand
 const BookingModal = lazy(() =>
@@ -30,16 +31,16 @@ const SkiGame2D = lazy(() =>
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "وادي الراحة | تجربة الثلج الأولى في مصر" },
+      { title: "Wadi Al-Raha | Egypt's First Snow Experience" },
       {
         name: "description",
         content:
-          "أول وجهة للرياضات الشتوية والتزلج على الثلج في مصر، على قمم جبال سانت كاترين على ارتفاع 2600م.",
+          "Egypt's first winter-sports and skiing destination, atop the Saint Catherine mountains at 2,600m.",
       },
-      { property: "og:title", content: "وادي الراحة | تجربة الثلج الأولى في مصر" },
+      { property: "og:title", content: "Wadi Al-Raha | Egypt's First Snow Experience" },
       {
         property: "og:description",
-        content: "احجز تجربتك الثلجية في قلب جبال سانت كاترين — تزلج، تلفريك، سبا، ومرافق فاخرة.",
+        content: "Book your snow experience in the heart of the Saint Catherine mountains — skiing, ice maze, spa and luxury facilities.",
       },
     ],
   }),
@@ -47,6 +48,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const t = useT();
   const [bookingOpen, setBookingOpen] = useState(false);
   const [gameOpen, setGameOpen] = useState(false);
   useRevealOnScroll();
@@ -85,10 +87,10 @@ function Index() {
         <Button
           onClick={openGame}
           size="lg"
-          className="fixed bottom-6 left-6 z-40 h-16 px-6 rounded-full bg-gradient-ice text-night font-black shadow-ice hover:shadow-lift hover:-translate-y-1 transition-spring"
+          className="fixed bottom-6 start-6 z-40 h-16 px-6 rounded-full bg-gradient-ice text-night font-black shadow-ice hover:shadow-lift hover:-translate-y-1 transition-spring"
         >
-          <Play className="h-5 w-5 ml-2 fill-current" />
-          ⛷️ العب اللعبة
+          <Play className="h-5 w-5 me-2 fill-current" />
+          {t("game.float")}
         </Button>
       )}
 
@@ -98,7 +100,7 @@ function Index() {
             <div className="fixed inset-0 z-50 grid place-items-center bg-night/95 backdrop-blur">
               <div className="text-center">
                 <div className="mx-auto h-16 w-16 rounded-full border-4 border-ice/30 border-t-ice animate-spin" />
-                <p className="mt-4 text-frost font-bold">جارٍ تحميل اللعبة...</p>
+                <p className="mt-4 text-frost font-bold">{t("game.loading")}</p>
               </div>
             </div>
           }
@@ -106,8 +108,8 @@ function Index() {
           <SkiGame2D />
           <button
             onClick={() => setGameOpen(false)}
-            className="fixed top-4 left-4 z-[60] h-10 w-10 rounded-full glass-strong text-frost grid place-items-center hover:bg-night/80 transition-smooth"
-            aria-label="إغلاق"
+            className="fixed top-4 start-4 z-[60] h-10 w-10 rounded-full glass-strong text-frost grid place-items-center hover:bg-night/80 transition-smooth"
+            aria-label={t("game.close")}
           >
             ✕
           </button>
